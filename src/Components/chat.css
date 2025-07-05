@@ -1,0 +1,425 @@
+/* Root: support dark mode via .dark-mode */
+.chat-container {
+  display: flex;
+  height: 100vh;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  background: #f3f5f8;
+  transition: background 0.3s;
+}
+.dark-mode .chat-container {
+  background: #23272f;
+}
+
+/* Sidebar */
+.sidebar {
+  width: 260px;
+  background-color: #fff;
+  border-right: 1px solid #ddd;
+  padding: 20px;
+  overflow-y: auto;
+  transition: background 0.3s, border-color 0.3s;
+}
+.dark-mode .sidebar {
+  background-color: #181a20;
+  border-right: 1px solid #31343b;
+}
+
+/* Sidebar user rows & admin controls */
+.user-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 8px;
+  border-radius: 6px;
+  margin-bottom: 5px;
+  cursor: pointer;
+  background: #f7f9fa;
+  transition: background 0.2s;
+}
+.user-row:hover {
+  background: #e0f7fa;
+}
+.user-row-inactive {
+  opacity: 0.55;
+  pointer-events: none;
+}
+.user-info {
+  display: flex;
+  align-items: center;
+}
+.user-avatar {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  margin-right: 10px;
+  border: 1px solid #bbb;
+}
+.user-name {
+  font-weight: 500;
+}
+.user-role-badge {
+  background: #222;
+  color: #fff;
+  border-radius: 4px;
+  font-size: 0.8em;
+  padding: 2px 6px;
+  margin-left: 8px;
+}
+.user-status-badge {
+  background: #b71c1c;
+  color: #fff;
+  border-radius: 4px;
+  font-size: 0.75em;
+  padding: 2px 6px;
+  margin-left: 8px;
+  text-transform: capitalize;
+}
+.admin-controls button {
+  margin-left: 4px;
+  background: #f5f5f5;
+  border: none;
+  border-radius: 4px;
+  padding: 2px 8px;
+  font-size: 0.9em;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+.admin-controls button:hover {
+  background: #b2ebf2;
+}
+
+.avatar-stack {
+  position: relative;
+  display: inline-block;
+}
+.unread-badge {
+  background: #f44;
+  color: #fff;
+  font-size: 0.8rem;
+  min-width: 20px;
+  min-height: 20px;
+  border-radius: 999px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 6px;
+  font-weight: bold;
+  margin-left: 10px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.12);
+}
+
+.chat-title {
+  font-size: 18px;
+  font-weight: bold;
+  margin-bottom: 16px;
+  color: #2a2a2a;
+  transition: color 0.3s;
+}
+.dark-mode .chat-title {
+  color: #f4f6fa;
+}
+
+.sidebar-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 16px;
+}
+
+/* Avatars with fallback initials */
+.user-avatar, .avatar {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 1px solid #ccc;
+  background: #dde1e7;
+  position: relative;
+}
+.avatar-fallback {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: #b0b7c3;
+  color: #fff;
+  font-weight: bold;
+  font-size: 1rem;
+  position: absolute;
+  left: 0; top: 0;
+}
+.dark-mode .user-avatar, .dark-mode .avatar {
+  border-color: #444;
+  background: #31343b;
+}
+.dark-mode .avatar-fallback {
+  background: #444c5c;
+}
+
+.user-name, .group-name {
+  font-weight: 500;
+  color: #23272f;
+  transition: color 0.3s;
+}
+.dark-mode .user-name, .dark-mode .group-name {
+  color: #f4f6fa;
+}
+
+/* Chat Main */
+.chat-main {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  padding: 1rem;
+  background: white;
+  overflow: hidden;
+  transition: background 0.3s;
+}
+.dark-mode .chat-main {
+  background: #181a20;
+}
+
+.role-buttons {
+  background-color: #fff;
+  border-bottom: 1px solid #ddd;
+  transition: background 0.3s, border-color 0.3s;
+}
+.dark-mode .role-buttons {
+  background-color: #181a20;
+  border-bottom: 1px solid #31343b;
+}
+
+.user-info-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+/* Chat Box */
+.chat-box {
+  flex: 1;
+  padding: 20px 24px;
+  overflow-y: auto;
+  background-color: #fff;
+  transition: background 0.3s;
+}
+.dark-mode .chat-box {
+  background-color: #22232b;
+}
+
+/* Message Animation */
+@keyframes bubbleIn {
+  from { opacity: 0; transform: translateY(16px) scale(0.95);}
+  to   { opacity: 1; transform: translateY(0) scale(1);}
+}
+.message-row {
+  display: flex;
+  align-items: flex-start;
+  margin-bottom: 16px;
+  animation: bubbleIn 0.4s cubic-bezier(0.6, 0.05, 0.3, 1.2);
+}
+.message-row.admin {
+  flex-direction: row-reverse;
+}
+.bubble {
+  background-color: #e5e5e5;
+  padding: 12px 16px;
+  border-radius: 16px;
+  max-width: 70%;
+  word-wrap: break-word;
+  transition: background 0.3s, color 0.3s;
+}
+.dark-mode .bubble {
+  background-color: #30313a;
+  color: #e8ecf4;
+}
+.message-row.admin .bubble {
+  background-color: #d1f7c4;
+}
+.dark-mode .message-row.admin .bubble {
+  background-color: #3d553a;
+}
+.meta {
+  font-size: 0.75rem;
+  color: #555;
+  margin-top: 6px;
+  text-align: right;
+}
+.dark-mode .meta {
+  color: #a6acc9;
+}
+.file-image {
+  max-width: 100%;
+  border-radius: 8px;
+  margin-top: 6px;
+}
+
+/* Typing Indicator */
+.typing-indicator {
+  font-style: italic;
+  color: #888;
+  font-size: 0.9rem;
+  margin: 10px 24px;
+}
+.dark-mode .typing-indicator {
+  color: #b1b4c4;
+}
+
+/* Input Area */
+.input-area {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 18px 24px;
+  background-color: #fff;
+  border-top: 1px solid #ddd;
+  transition: background 0.3s, border-color 0.3s;
+}
+.dark-mode .input-area {
+  background-color: #181a20;
+  border-top: 1px solid #31343b;
+}
+
+.input-area input[type="text"] {
+  flex: 1;
+  padding: 10px 14px;
+  font-size: 0.95rem;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  background: #f5f6fa;
+  color: #22232b;
+  transition: background 0.3s, border-color 0.3s, color 0.3s;
+}
+.dark-mode .input-area input[type="text"] {
+  border: 1px solid #393b45;
+  background: #23272f;
+  color: #f4f6fa;
+}
+
+.input-area button {
+  background-color: #28a745;
+  color: white;
+  padding: 10px 18px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+.input-area button:hover {
+  background-color: #218838;
+}
+
+/* Responsive */
+@media screen and (max-width: 700px) {
+  .chat-container {
+    flex-direction: column;
+  }
+  .sidebar {
+    width: 100%;
+    border-right: none;
+    border-bottom: 1px solid #ddd;
+  }
+  .dark-mode .sidebar {
+    border-bottom: 1px solid #31343b;
+  }
+  .chat-box {
+    padding: 12px;
+  }
+  .input-area {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  .input-area input,
+  .input-area button {
+    width: 100%;
+  }
+}
+
+/* Optional: Sidebar slide for mobile menu */
+@media screen and (max-width: 700px) {
+  .sidebar {
+    transition: transform 0.3s;
+  }
+  .sidebar.closed {
+    transform: translateX(-100%);
+  }
+}
+.user-list-label {
+  font-size: 0.88em;
+  color: #666;
+  margin: 7px 0 3px 3px;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+}
+
+.user-status-badge.banned {
+  background: #e53935;
+}
+.user-status-badge.kicked {
+  background: #ffc107;
+  color: #333;
+}
+.admin-controls button.promote:hover {
+  background: #e1bee7;
+  color: #6a1b9a;
+}
+.admin-controls button.kick:hover {
+  background: #fff8e1;
+  color: #b58a00;
+}
+.admin-controls button.ban:hover {
+  background: #ffebee;
+  color: #e53935;
+}
+.admin-controls button.unban:hover {
+  background: #e8f5e9;
+  color: #257a36;
+}
+/* Sidebar dark mode */
+.dark-mode .sidebar {
+  background: #181a20 !important;
+  color: #f4f6fa;
+}
+
+/* User & group names */
+.dark-mode .user-name,
+.dark-mode .group-name {
+  color: #f4f6fa !important;
+}
+
+/* User role & status badges */
+.user-role-badge {
+  background: #23262b;
+  color: #ffd600;
+  border-radius: 4px;
+  font-size: 0.8em;
+  padding: 2px 8px;
+  margin-left: 8px;
+  vertical-align: middle;
+}
+.user-status-badge {
+  background: #c62828;
+  color: #fff;
+  border-radius: 4px;
+  font-size: 0.75em;
+  padding: 2px 8px;
+  margin-left: 8px;
+  vertical-align: middle;
+  text-transform: capitalize;
+}
+.dark-mode .user-role-badge {
+  background: #353945;
+  color: #ffd600;
+}
+.dark-mode .user-status-badge {
+  background: #ff1744;
+  color: #fff;
+}
+
+/* Inactive row styling */
+.user-row-inactive {
+  opacity: 0.6;
+  pointer-events: none;
+}
